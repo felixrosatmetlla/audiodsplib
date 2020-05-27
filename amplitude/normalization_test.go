@@ -3,7 +3,7 @@ package amplitude
 import (
 	"testing"
 
-	"../audiodsputils"
+	"audiodsplib/audiodsputils"
 )
 
 //TODO: Check fixture packages to get more reliable testing results
