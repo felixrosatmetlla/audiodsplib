@@ -1,0 +1,25 @@
+image: golang:1.14.3
+
+variables:
+  # Please edit to your GitLab project
+  REPO_NAME: gitlab.com/felixrosatmetlla/audiodsplib
+
+
+before_script:
+  - mkdir -p $GOPATH/src/$(dirname $REPO_NAME)
+  - ln -svf $CI_PROJECT_DIR $GOPATH/src/$REPO_NAME
+  - cd $GOPATH/src/$REPO_NAME
+
+stages:
+  - build
+  - test
+
+compile:
+  stage: build
+  script:
+    - go build -v ./...
+    
+unit_tests:
+  stage: test
+  script:
+    - go test -v ./... -coverprofile .testCoverage.txt
