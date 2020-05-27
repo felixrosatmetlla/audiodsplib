@@ -1,7 +1,7 @@
 package amplitude
 
 import (
-	"audiodsplib/audiodsputils"
+	"github.com\felixrosatmetlla\audiodsplib\audiodsputils"
 )
 
 // PeakNormalization normalizes a signal using its peak value
