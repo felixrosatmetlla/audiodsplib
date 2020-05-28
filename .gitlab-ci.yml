@@ -29,9 +29,20 @@ unit_tests:
   stage: test
   script:
     - go get -u github.com/jstemmer/go-junit-report
-    - go test -v ./... -coverprofile .testCoverage.txt | go-junit-report > report.xml
-  
+
+    - go test -v ./... | go-junit-report > report.xml
+
+coverage:
+  stage: test
+  script:
+    - go get code.google.com/p/go.tools/cmd/cover
+    - go get github.com/t-yuki/gocover-cobertura
+
+    - go test -coverprofile=coverage.txt -covermode count $REPO_NAME
+    - gocover-cobertura < coverage.txt > coverage.xml
+
   artifacts:
     reports:
       junit: report.xml
+      cobertura: coverage.xml
     
