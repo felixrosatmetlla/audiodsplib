@@ -38,7 +38,7 @@ coverage:
     - go get golang.org/x/tools/cmd/cover
     - go get github.com/t-yuki/gocover-cobertura
 
-    - go test -coverprofile=coverage.txt -covermode count $REPO_NAME
+    - go test -coverprofile=coverage.txt -covermode count ./...
     - gocover-cobertura < coverage.txt > coverage.xml
 
   artifacts:
