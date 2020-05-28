@@ -35,7 +35,7 @@ unit_tests:
 coverage:
   stage: test
   script:
-    - go get code.google.com/x/go.tools/cmd/cover
+    - go get golang.org/x/tools/cmd/cover
     - go get github.com/t-yuki/gocover-cobertura
 
     - go test -coverprofile=coverage.txt -covermode count $REPO_NAME
