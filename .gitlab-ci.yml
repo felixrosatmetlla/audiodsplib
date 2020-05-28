@@ -17,7 +17,7 @@ stages:
 compile:
   stage: build
   script:
-    - go install audiodsplib/audiodsputils
+    - go install github.com/felixrosatmetlla/audiodsplib
     - go build -v ./...
     
 unit_tests:
