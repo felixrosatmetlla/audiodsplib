@@ -17,6 +17,7 @@ stages:
 compile:
   stage: build
   script:
+    - go import audiodsplib/audiodsputils
     - go build -v ./...
     
 unit_tests:

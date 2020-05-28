@@ -3,7 +3,7 @@ package amplitude
 import (
 	"testing"
 
-	"github.com\felixrosatmetlla\audiodsplib\audiodsputils"
+	"audiodsplib/audiodsputils"
 )
 
 func TestInvertPolarity(t *testing.T) {
