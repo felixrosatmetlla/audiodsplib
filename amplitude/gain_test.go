@@ -29,7 +29,7 @@ func TestChangeGain(t *testing.T) {
 		result := ChangeGain(caseData.inputSignal, caseData.gain)
 
 		if !audiodsputils.CompareMonoSignals(result, caseData.outputSignal) {
-			t.Errorf("Inversion of signal %v was incorrect, got: %v, want: %v.", caseData.inputSignal, result, caseData.outputSignal)
+			t.Errorf("Gain change of signal %v was incorrect, got: %v, want: %v.", caseData.inputSignal, result, caseData.outputSignal)
 		}
 	}
 }
@@ -56,7 +56,7 @@ func TestChangeGaindB(t *testing.T) {
 		result := ChangeGaindB(caseData.inputSignal, caseData.gainIndB)
 
 		if !audiodsputils.CompareMonoSignals(result, caseData.outputSignal) {
-			t.Errorf("Inversion of signal %v was incorrect, got: %v, want: %v.", caseData.inputSignal, result, caseData.outputSignal)
+			t.Errorf("Gain change in dB of signal %v was incorrect, got: %v, want: %v.", caseData.inputSignal, result, caseData.outputSignal)
 		}
 	}
 }
