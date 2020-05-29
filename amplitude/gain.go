@@ -4,7 +4,7 @@ import (
 	"math"
 )
 
-//TODO: Find a good way to do overload in Golang or not duplicate so much code
+//TODO: MultiChannel options
 
 // ChangeGain modifies the signals gain using a linear value of Amplitude
 func ChangeGain(signal []float64, gain float64) []float64 {
@@ -30,8 +30,6 @@ func ChangeGaindB(signal []float64, dBChange float64) []float64 {
 
 	return output
 }
-
-//TODO: MultiChannel options
 
 // InvertPolarity computes a polarly inverted signal of a mono signal
 func InvertPolarity(signal []float64) []float64 {
