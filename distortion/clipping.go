@@ -4,6 +4,7 @@ import (
 	"math"
 )
 
+// InfiniteClipping distorts a signal clipping it to values 1 and -1
 func InfiniteClipping(signal []float64) []float64 {
 	var bufferSize = len(signal)
 	var output = make([]float64, bufferSize)
@@ -19,6 +20,7 @@ func InfiniteClipping(signal []float64) []float64 {
 	return output
 }
 
+// HardClipping distorts a signal clipping it the value indicated by the threshold parameter
 func HardClipping(signal []float64, threshold float64) []float64 {
 	var bufferSize = len(signal)
 	var output = make([]float64, bufferSize)
