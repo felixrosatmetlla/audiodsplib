@@ -59,3 +59,14 @@ func ArctangentDistortion(signal []float64, alpha float64) []float64 {
 
 	return output
 }
+
+func SineDistortion(signal []float64) []float64 {
+	var bufferSize = len(signal)
+	var output = make([]float64, bufferSize)
+
+	for index, value := range signal {
+		output[index] = math.Sin(2 * math.Pi * value)
+	}
+
+	return output
+}
