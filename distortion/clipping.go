@@ -40,12 +40,19 @@ func HardClipping(signal []float64, threshold float64) []float64 {
 	return output
 }
 
+// CubicDistortion distorts a signal using a cubic function
+//
+// Input variables:
+//  signal: Input signal to distort
+//  amplitude: The drive amount of the distortion. Range from [0, 1]:
+//   0: no distortion
+//   1: maximum amount of distortion
 func CubicDistortion(signal []float64, amplitude float64) []float64 {
 	var bufferSize = len(signal)
 	var output = make([]float64, bufferSize)
 
 	for index, value := range signal {
-		output[index] = value - amplitude*(1/3)*math.Pow(value, 3)
+		output[index] = value - amplitude*(1./3.)*math.Pow(value, 3)
 	}
 
 	return output

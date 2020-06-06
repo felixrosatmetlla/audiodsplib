@@ -5,10 +5,12 @@ import (
 )
 
 // SynthMonoSinus synthesizes a mono sinus signal
-// frequency: signal frequency in Hz
-// phase: initial phase offset of the signal
-// duration: signal duration in seconds
-// sampleRate: signal sample rate in samples/s
+//
+// Input variables:
+//  frequency: signal frequency in Hz
+//  phase: initial phase offset of the signal
+//  duration: signal duration in seconds
+//  sampleRate: signal sample rate in samples/s
 func SynthMonoSinus(frequency float64, amplitude float64, phase float64, duration float64, sampleRate float64) []float64 {
 	var samples int = int(duration * sampleRate)
 	var sinBuffer = make([]float64, samples)
