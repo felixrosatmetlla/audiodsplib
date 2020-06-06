@@ -6,6 +6,9 @@ import (
 )
 
 // InfiniteClipping distorts a signal clipping it to values 1 and -1
+//
+// Input variables:
+//  signal: Input signal to distort
 func InfiniteClipping(signal []float64) []float64 {
 	var bufferSize = len(signal)
 	var output = make([]float64, bufferSize)
@@ -21,8 +24,18 @@ func InfiniteClipping(signal []float64) []float64 {
 	return output
 }
 
-// HardClipping distorts a signal clipping it the value indicated by the threshold parameter
-func HardClipping(signal []float64, threshold float64) []float64 {
+// TODO: What happens if the user enters as input a threshold bigger than max signal value?
+
+// HardClipping distorts a signal clipping it to the value indicated
+//
+// Input variables:
+//  signal: Input signal to distort
+//  threshold: Absolute amplitude value where the signal will be clipped (threshold > 0)
+func HardClipping(signal []float64, threshold float64) ([]float64, error) {
+	if threshold < 0 {
+		return []float64{}, errors.New("distortion: Invalid threshold value. Valid value: Threshold > 0")
+	}
+
 	var bufferSize = len(signal)
 	var output = make([]float64, bufferSize)
 
@@ -38,7 +51,7 @@ func HardClipping(signal []float64, threshold float64) []float64 {
 		}
 	}
 
-	return output
+	return output, nil
 }
 
 // CubicDistortion distorts a signal using a cubic function
@@ -50,7 +63,7 @@ func HardClipping(signal []float64, threshold float64) []float64 {
 //   1: maximum amount of distortion
 func CubicDistortion(signal []float64, amplitude float64) ([]float64, error) {
 	if amplitude < 0 || amplitude > 1 {
-		return []float64{}, errors.New("distortion: invalid amplitude range")
+		return []float64{}, errors.New("distortion: Invalid amplitude range. Valid range: [0, 1]")
 	}
 
 	var bufferSize = len(signal)
@@ -71,7 +84,7 @@ func CubicDistortion(signal []float64, amplitude float64) ([]float64, error) {
 //   Range from [1, 10]: higher -> more distortion
 func ArctangentDistortion(signal []float64, alpha float64) ([]float64, error) {
 	if alpha < 1 || alpha > 10 {
-		return []float64{}, errors.New("distortion: invalid alpha range")
+		return []float64{}, errors.New("distortion: Invalid alpha range. Valid range: [1, 10]")
 	}
 
 	var bufferSize = len(signal)
@@ -82,15 +95,4 @@ func ArctangentDistortion(signal []float64, alpha float64) ([]float64, error) {
 	}
 
 	return output, nil
-}
-
-func SineDistortion(signal []float64) []float64 {
-	var bufferSize = len(signal)
-	var output = make([]float64, bufferSize)
-
-	for index, value := range signal {
-		output[index] = math.Sin(2 * math.Pi * value)
-	}
-
-	return output
 }

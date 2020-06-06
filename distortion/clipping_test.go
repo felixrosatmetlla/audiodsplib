@@ -46,10 +46,23 @@ func TestHardClipping(t *testing.T) {
 			1.75,
 			[]float64{0, -0.5, -1.75, -1.5, 0, 0.5, 1.75, 1.5, 0},
 		},
+		{
+			[]float64{0, 0.5, 1, 0.5, 0, -0.5, -1, -0.5, 0},
+			-0.5,
+			[]float64{},
+		},
 	}
 
 	for _, caseData := range testData {
-		result := HardClipping(caseData.inputSignal, caseData.threshold)
+		result, err := HardClipping(caseData.inputSignal, caseData.threshold)
+
+		if len(result) == 0 && err == nil {
+			t.Errorf("Error message informing of operation failure was expected and got: %v", err)
+		}
+
+		if len(result) != 0 && err != nil {
+			t.Errorf("No error message was expected, and got %v", err)
+		}
 
 		if !audiodsputils.CompareMonoSignals(result, caseData.clippedSignal) {
 			t.Errorf("Hard clipping of signal %v was incorrect, got: %v, want: %v.", caseData.inputSignal, result, caseData.clippedSignal)
