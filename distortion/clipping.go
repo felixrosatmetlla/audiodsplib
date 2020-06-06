@@ -1,6 +1,7 @@
 package distortion
 
 import (
+	"errors"
 	"math"
 )
 
@@ -58,7 +59,17 @@ func CubicDistortion(signal []float64, amplitude float64) []float64 {
 	return output
 }
 
-func ArctangentDistortion(signal []float64, alpha float64) []float64 {
+// ArctangentDistortion distorts a signal using an arctangent function
+//
+// Input variables:
+//  signal: Input signal to distort
+//  alpha: The drive amount of the distortion
+//   Range from [1, 10]: higher -> more distortion
+func ArctangentDistortion(signal []float64, alpha float64) ([]float64, error) {
+	if alpha < 1 || alpha > 10 {
+		return []float64{}, errors.New("distortion: invalid alpha range")
+	}
+
 	var bufferSize = len(signal)
 	var output = make([]float64, bufferSize)
 
@@ -66,7 +77,7 @@ func ArctangentDistortion(signal []float64, alpha float64) []float64 {
 		output[index] = (2 / math.Pi) * math.Atan(value*alpha)
 	}
 
-	return output
+	return output, nil
 }
 
 func SineDistortion(signal []float64) []float64 {
