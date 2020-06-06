@@ -48,7 +48,11 @@ func HardClipping(signal []float64, threshold float64) []float64 {
 //  amplitude: The drive amount of the distortion. Range from [0, 1]:
 //   0: no distortion
 //   1: maximum amount of distortion
-func CubicDistortion(signal []float64, amplitude float64) []float64 {
+func CubicDistortion(signal []float64, amplitude float64) ([]float64, error) {
+	if amplitude < 0 || amplitude > 1 {
+		return []float64{}, errors.New("distortion: invalid amplitude range")
+	}
+
 	var bufferSize = len(signal)
 	var output = make([]float64, bufferSize)
 
@@ -56,7 +60,7 @@ func CubicDistortion(signal []float64, amplitude float64) []float64 {
 		output[index] = value - amplitude*(1./3.)*math.Pow(value, 3)
 	}
 
-	return output
+	return output, nil
 }
 
 // ArctangentDistortion distorts a signal using an arctangent function

@@ -78,10 +78,28 @@ func TestCubicDistortion(t *testing.T) {
 			0,
 			[]float64{0, 0.5, 1, 0.5, 0, -0.5, -1, -0.5, 0},
 		},
+		{
+			[]float64{0, 0.5, 1, 0.5, 0, -0.5, -1, -0.5, 0},
+			-0.5,
+			[]float64{},
+		},
+		{
+			[]float64{0, 0.5, 1, 0.5, 0, -0.5, -1, -0.5, 0},
+			2,
+			[]float64{},
+		},
 	}
 
 	for _, caseData := range testData {
-		result := CubicDistortion(caseData.inputSignal, caseData.amplitude)
+		result, err := CubicDistortion(caseData.inputSignal, caseData.amplitude)
+
+		if len(result) == 0 && err == nil {
+			t.Errorf("Error message informing of operation failure was expected and got: %v", err)
+		}
+
+		if len(result) != 0 && err != nil {
+			t.Errorf("No error message was expected, and got %v", err)
+		}
 
 		if !audiodsputils.CompareMonoSignals(result, caseData.outputSignal) {
 			t.Errorf("Cubic distortion of signal %v was incorrect, got: %v, want: %v.", caseData.inputSignal, result, caseData.outputSignal)
@@ -120,16 +138,16 @@ func TestArctangentDistortion(t *testing.T) {
 	for _, caseData := range testData {
 		result, err := ArctangentDistortion(caseData.inputSignal, caseData.alpha)
 
-		if !audiodsputils.CompareMonoSignals(result, caseData.outputSignal) {
-			t.Errorf("Arctangent distortion of signal %v was incorrect, got: %v, want: %v.", caseData.inputSignal, result, caseData.outputSignal)
-		}
-
 		if len(result) == 0 && err == nil {
 			t.Errorf("Error message informing of operation failure was expected and got: %v", err)
 		}
 
 		if len(result) != 0 && err != nil {
 			t.Errorf("No error message was expected, and got %v", err)
+		}
+
+		if !audiodsputils.CompareMonoSignals(result, caseData.outputSignal) {
+			t.Errorf("Arctangent distortion of signal %v was incorrect, got: %v, want: %v.", caseData.inputSignal, result, caseData.outputSignal)
 		}
 	}
 }
