@@ -1,8 +1,9 @@
 package distortion
 
 import (
-	"audiodsplib/audiodsputils"
 	"testing"
+
+	"github.com/felixrosatmetlla/audiodsplib/audiodsputils"
 )
 
 func TestInfiniteClipping(t *testing.T) {
