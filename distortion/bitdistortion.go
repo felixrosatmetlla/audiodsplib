@@ -1,8 +1,15 @@
 package distortion
 
-import "math"
+import (
+	"errors"
+	"math"
+)
 
-func BitReduction(signal []float64, numberBits int) []float64 {
+func BitReduction(signal []float64, numberBits int) ([]float64, error) {
+	if numberBits < 0 {
+		return []float64{}, errors.New("distortion: Invalid number of bits value. Valid value: numberBits >= 0")
+	}
+
 	var bufferSize = len(signal)
 	var output = make([]float64, bufferSize)
 
@@ -17,5 +24,5 @@ func BitReduction(signal []float64, numberBits int) []float64 {
 		output[index] = 2*auxOutput - 1
 	}
 
-	return output
+	return output, nil
 }
