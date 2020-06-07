@@ -24,16 +24,14 @@ func InfiniteClipping(signal []float64) []float64 {
 	return output
 }
 
-// TODO: What happens if the user enters as input a threshold bigger than max signal value?
-
 // HardClipping distorts a signal clipping it to the value indicated
 //
 // Input variables:
 //  signal: Input signal to distort
 //  threshold: Absolute amplitude value where the signal will be clipped (threshold > 0)
 func HardClipping(signal []float64, threshold float64) ([]float64, error) {
-	if threshold < 0 {
-		return []float64{}, errors.New("distortion: Invalid threshold value. Valid value: Threshold > 0")
+	if threshold <= 0 {
+		return []float64{}, errors.New("distortion: Invalid threshold value. Valid value: Threshold >= 0")
 	}
 
 	var bufferSize = len(signal)
