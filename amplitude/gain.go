@@ -28,16 +28,12 @@ func ChangeGain(inputSignal types.Signal, gain float64) types.Signal {
 }
 
 // ChangeGaindB modifies the signals gain using a value in decibels as input
-func ChangeGaindB(inputSignal []float64, dBChange float64) []float64 {
-	var bufferSize = len(inputSignal)
-	var output = make([]float64, bufferSize)
+func ChangeGaindB(inputSignal types.Signal, dBChange float64) types.Signal {
 	var scale = math.Pow(10, dBChange/20)
 
-	for index := range output {
-		output[index] = inputSignal[index] * scale
-	}
+	outputSignal := ChangeGain(inputSignal, scale)
 
-	return output
+	return outputSignal
 }
 
 // InvertPolarity computes a polarly inverted signal of a mono signal
