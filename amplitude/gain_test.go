@@ -84,24 +84,44 @@ func TestChangeGaindB(t *testing.T) {
 
 func TestInvertPolarity(t *testing.T) {
 	testData := []struct {
-		inputSignal    []float64
-		invertedSignal []float64
+		inputSignal  types.Signal
+		outputSignal types.Signal
 	}{
 		{
-			[]float64{0, 0.5, 1, 0.5, 0, -0.5, -1, -0.5, 0},
-			[]float64{0, -0.5, -1, -0.5, 0, 0.5, 1, 0.5, 0},
+			types.Signal{
+				Data:       []float64{0, 0.5, 1, 0.5, 0, -0.5, -1, -0.5, 0},
+				Channels:   1,
+				Samplerate: 44100.0,
+				NumSamples: 9,
+			},
+			types.Signal{
+				Data:       []float64{0, -0.5, -1, -0.5, 0, 0.5, 1, 0.5, 0},
+				Channels:   1,
+				Samplerate: 44100.0,
+				NumSamples: 9,
+			},
 		},
 		{
-			[]float64{},
-			[]float64{},
+			types.Signal{
+				Data:       []float64{},
+				Channels:   1,
+				Samplerate: 44100.0,
+				NumSamples: 0,
+			},
+			types.Signal{
+				Data:       []float64{},
+				Channels:   1,
+				Samplerate: 44100.0,
+				NumSamples: 0,
+			},
 		},
 	}
 
 	for _, caseData := range testData {
 		result := InvertPolarity(caseData.inputSignal)
 
-		if !audiodsputils.CompareArrayValues(result, caseData.invertedSignal) {
-			t.Errorf("Inversion of signal %v was incorrect, got: %v, want: %v.", caseData.inputSignal, result, caseData.invertedSignal)
+		if !audiodsputils.CompareSignals(result, caseData.outputSignal) {
+			t.Errorf("Inversion of signal %v was incorrect, got: %v, want: %v.", caseData.inputSignal, result, caseData.outputSignal)
 		}
 	}
 }

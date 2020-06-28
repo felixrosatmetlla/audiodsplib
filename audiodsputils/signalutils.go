@@ -21,3 +21,5 @@ func CompareSignals(signalA, signalB types.Signal) bool {
 
 	return true
 }
+
+//TODO: Method(Signal, output N-D slice(empty)) return slice?
