@@ -5,30 +5,51 @@ import (
 	"testing"
 
 	"github.com/felixrosatmetlla/audiodsplib/audiodsputils"
+	"github.com/felixrosatmetlla/audiodsplib/types"
 )
 
 func TestChangeGain(t *testing.T) {
 	testData := []struct {
-		inputSignal  []float64
+		inputSignal  types.Signal
 		gain         float64
-		outputSignal []float64
+		outputSignal types.Signal
 	}{
 		{
-			[]float64{0, 0.5, 1, 0.5, 0, -0.5, -1, -0.5, 0},
+			types.Signal{
+				Data:       []float64{0, 0.5, 1, 0.5, 0, -0.5, -1, -0.5, 0},
+				Channels:   1,
+				Samplerate: 44100.0,
+				NumSamples: 9,
+			},
 			2.0,
-			[]float64{0, 1, 2, 1, 0, -1, -2, -1, 0},
+			types.Signal{
+				Data:       []float64{0, 1, 2, 1, 0, -1, -2, -1, 0},
+				Channels:   1,
+				Samplerate: 44100.0,
+				NumSamples: 9,
+			},
 		},
 		{
-			[]float64{0, 0.5, 1, 0.5, 0, -0.5, -1, -0.5, 0},
+			types.Signal{
+				Data:       []float64{0, 0.5, 1, 0.5, 0, -0.5, -1, -0.5, 0},
+				Channels:   1,
+				Samplerate: 44100.0,
+				NumSamples: 9,
+			},
 			-0.5,
-			[]float64{0, -0.25, -0.5, -0.25, 0, 0.25, 0.5, 0.25, 0},
+			types.Signal{
+				Data:       []float64{0, -0.25, -0.5, -0.25, 0, 0.25, 0.5, 0.25, 0},
+				Channels:   1,
+				Samplerate: 44100.0,
+				NumSamples: 9,
+			},
 		},
 	}
 
 	for _, caseData := range testData {
 		result := ChangeGain(caseData.inputSignal, caseData.gain)
 
-		if !audiodsputils.CompareMonoSignals(result, caseData.outputSignal) {
+		if !audiodsputils.CompareSignals(result, caseData.outputSignal) {
 			t.Errorf("Gain change of signal %v was incorrect, got: %v, want: %v.", caseData.inputSignal, result, caseData.outputSignal)
 		}
 	}
@@ -55,7 +76,7 @@ func TestChangeGaindB(t *testing.T) {
 	for _, caseData := range testData {
 		result := ChangeGaindB(caseData.inputSignal, caseData.gainIndB)
 
-		if !audiodsputils.CompareMonoSignals(result, caseData.outputSignal) {
+		if !audiodsputils.CompareArrayValues(result, caseData.outputSignal) {
 			t.Errorf("Gain change in dB of signal %v was incorrect, got: %v, want: %v.", caseData.inputSignal, result, caseData.outputSignal)
 		}
 	}
@@ -79,7 +100,7 @@ func TestInvertPolarity(t *testing.T) {
 	for _, caseData := range testData {
 		result := InvertPolarity(caseData.inputSignal)
 
-		if !audiodsputils.CompareMonoSignals(result, caseData.invertedSignal) {
+		if !audiodsputils.CompareArrayValues(result, caseData.invertedSignal) {
 			t.Errorf("Inversion of signal %v was incorrect, got: %v, want: %v.", caseData.inputSignal, result, caseData.invertedSignal)
 		}
 	}

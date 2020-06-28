@@ -2,20 +2,29 @@ package amplitude
 
 import (
 	"math"
+
+	"github.com/felixrosatmetlla/audiodsplib/types"
 )
 
 //TODO: MultiChannel options
 
 // ChangeGain modifies the signals gain using a linear value of Amplitude
-func ChangeGain(signal []float64, gain float64) []float64 {
-	var bufferSize = len(signal)
-	var output = make([]float64, bufferSize)
+func ChangeGain(signal types.Signal, gain float64) types.Signal {
+	var bufferSize = signal.NumSamples * signal.Channels
+	var outputBuffer = make([]float64, bufferSize)
 
-	for index := range output {
-		output[index] = signal[index] * gain
+	for index := range outputBuffer {
+		outputBuffer[index] = signal.Data[index] * gain
 	}
 
-	return output
+	outputSignal := types.Signal{
+		Data:       outputBuffer,
+		Channels:   signal.Channels,
+		Samplerate: signal.Samplerate,
+		NumSamples: signal.NumSamples,
+	}
+
+	return outputSignal
 }
 
 // ChangeGaindB modifies the signals gain using a value in decibels as input
