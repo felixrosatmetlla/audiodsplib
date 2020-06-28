@@ -6,12 +6,10 @@ import (
 	"github.com/felixrosatmetlla/audiodsplib/types"
 )
 
-//TODO: MultiChannel options
-
 // ChangeGain modifies the signals gain using a linear value of Amplitude
 //
 // Input variables:
-//  signal: Input signal to modify amplitude
+//  inputSignal: Input signal to modify amplitude
 //  gain: Value of gain that will change the signal
 func ChangeGain(inputSignal types.Signal, gain float64) types.Signal {
 	var bufferSize = inputSignal.NumSamples * inputSignal.Channels
@@ -34,7 +32,7 @@ func ChangeGain(inputSignal types.Signal, gain float64) types.Signal {
 // ChangeGaindB modifies the signals gain using a value in decibels as input
 //
 // Input variables:
-//  signal: Input signal to modify amplitude
+//  inputSignal: Input signal to modify amplitude
 //  dBChange: Value of decibels that will change the input signal
 func ChangeGaindB(inputSignal types.Signal, dBChange float64) types.Signal {
 	var scale = math.Pow(10, dBChange/20)
@@ -47,7 +45,7 @@ func ChangeGaindB(inputSignal types.Signal, dBChange float64) types.Signal {
 // InvertPolarity computes a polarly inverted signal of a mono signal
 //
 // Input variables:
-//  signal: Input signal to modify amplitude
+//  inputSignal: Input signal to modify amplitude
 func InvertPolarity(inputSignal types.Signal) types.Signal {
 	outputSignal := ChangeGain(inputSignal, -1)
 
