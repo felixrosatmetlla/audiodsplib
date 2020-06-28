@@ -34,6 +34,7 @@ func SynthSinus(frequency float64, amplitude float64, phase float64, duration fl
 		Data:       sinBuffer,
 		Channels:   channels,
 		Samplerate: sampleRate,
+		NumSamples: numSamplesChannel,
 	}
 
 	return sinus
