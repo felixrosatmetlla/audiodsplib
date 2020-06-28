@@ -24,7 +24,7 @@ func TestInfiniteClipping(t *testing.T) {
 	for _, caseData := range testData {
 		result := InfiniteClipping(caseData.inputSignal)
 
-		if !audiodsputils.CompareMonoSignals(result, caseData.clippedSignal) {
+		if !audiodsputils.CompareArrayValues(result, caseData.clippedSignal) {
 			t.Errorf("Infinite clipping of signal %v was incorrect, got: %v, want: %v.", caseData.inputSignal, result, caseData.clippedSignal)
 		}
 	}
@@ -64,7 +64,7 @@ func TestHardClipping(t *testing.T) {
 			t.Errorf("No error message was expected, and got %v", err)
 		}
 
-		if !audiodsputils.CompareMonoSignals(result, caseData.clippedSignal) {
+		if !audiodsputils.CompareArrayValues(result, caseData.clippedSignal) {
 			t.Errorf("Hard clipping of signal %v was incorrect, got: %v, want: %v.", caseData.inputSignal, result, caseData.clippedSignal)
 		}
 	}
@@ -114,7 +114,7 @@ func TestCubicDistortion(t *testing.T) {
 			t.Errorf("No error message was expected, and got %v", err)
 		}
 
-		if !audiodsputils.CompareMonoSignals(result, caseData.outputSignal) {
+		if !audiodsputils.CompareArrayValues(result, caseData.outputSignal) {
 			t.Errorf("Cubic distortion of signal %v was incorrect, got: %v, want: %v.", caseData.inputSignal, result, caseData.outputSignal)
 		}
 	}
@@ -159,7 +159,7 @@ func TestArctangentDistortion(t *testing.T) {
 			t.Errorf("No error message was expected, and got %v", err)
 		}
 
-		if !audiodsputils.CompareMonoSignals(result, caseData.outputSignal) {
+		if !audiodsputils.CompareArrayValues(result, caseData.outputSignal) {
 			t.Errorf("Arctangent distortion of signal %v was incorrect, got: %v, want: %v.", caseData.inputSignal, result, caseData.outputSignal)
 		}
 	}

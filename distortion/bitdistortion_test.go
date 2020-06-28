@@ -40,7 +40,7 @@ func TestBitReduction(t *testing.T) {
 			t.Errorf("No error message was expected, and got %v", err)
 		}
 
-		if !audiodsputils.CompareMonoSignals(result, caseData.outputSignal) {
+		if !audiodsputils.CompareArrayValues(result, caseData.outputSignal) {
 			t.Errorf("Bit reduction of signal %v was incorrect, got: %v, want: %v.", caseData.inputSignal, result, caseData.outputSignal)
 		}
 	}

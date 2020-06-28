@@ -26,7 +26,7 @@ func TestPeakNormalization(t *testing.T) {
 	for _, caseData := range testData {
 		result := PeakNormalization(caseData.inputSignal)
 
-		if !audiodsputils.CompareMonoSignals(result, caseData.normalizedSignal) {
+		if !audiodsputils.CompareArrayValues(result, caseData.normalizedSignal) {
 			t.Errorf("Peak normalization of signal %v was incorrect, got: %v, want: %v.", caseData.inputSignal, result, caseData.normalizedSignal)
 		}
 	}
@@ -53,7 +53,7 @@ func TestRMSNormalization(t *testing.T) {
 	for _, caseData := range testData {
 		result := RMSNormalization(caseData.inputSignal, caseData.rmsAmplitude)
 
-		if !audiodsputils.CompareMonoSignals(result, caseData.normalizedSignal) {
+		if !audiodsputils.CompareArrayValues(result, caseData.normalizedSignal) {
 			t.Errorf("Peak normalization of signal %v was incorrect, got: %v, want: %v.", caseData.inputSignal, result, caseData.normalizedSignal)
 		}
 	}
