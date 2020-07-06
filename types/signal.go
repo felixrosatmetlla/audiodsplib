@@ -14,3 +14,5 @@ type Signal struct {
 	Samplerate float64
 	NumSamples int
 }
+
+// TODO: Make constructor method

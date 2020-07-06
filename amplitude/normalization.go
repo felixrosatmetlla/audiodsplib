@@ -27,6 +27,8 @@ func PeakNormalization(inputSignal types.Signal) types.Signal {
 	return outputSignal
 }
 
+//TODO: Check if samplesSquaredSum is for channel or total
+
 // RMSNormalization normalizes a signal amplitude to a specified RMS (Root Mean Squared) amplitude value
 func RMSNormalization(signal []float64, rmsAmplitude float64) []float64 {
 	var signalLength = len(signal)
