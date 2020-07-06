@@ -3,25 +3,34 @@ package distortion
 import (
 	"errors"
 	"math"
+
+	"github.com/felixrosatmetlla/audiodsplib/types"
 )
 
 // InfiniteClipping distorts a signal clipping it to values 1 and -1
 //
 // Input variables:
 //  signal: Input signal to distort
-func InfiniteClipping(signal []float64) []float64 {
-	var bufferSize = len(signal)
-	var output = make([]float64, bufferSize)
+func InfiniteClipping(inputSignal types.Signal) types.Signal {
+	var bufferSize = inputSignal.NumSamples * inputSignal.Channels
+	var outputBuffer = make([]float64, bufferSize)
 
-	for index, value := range signal {
+	for index, value := range inputSignal.Data {
 		if value >= 0 {
-			output[index] = 1
+			outputBuffer[index] = 1
 		} else {
-			output[index] = -1
+			outputBuffer[index] = -1
 		}
 	}
 
-	return output
+	outputSignal := types.Signal{
+		Data:       outputBuffer,
+		Channels:   inputSignal.Channels,
+		Samplerate: inputSignal.Samplerate,
+		NumSamples: inputSignal.NumSamples,
+	}
+
+	return outputSignal
 }
 
 // HardClipping distorts a signal clipping it to the value indicated

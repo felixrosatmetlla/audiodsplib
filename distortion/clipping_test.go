@@ -4,28 +4,49 @@ import (
 	"testing"
 
 	"github.com/felixrosatmetlla/audiodsplib/audiodsputils"
+	"github.com/felixrosatmetlla/audiodsplib/types"
 )
 
 func TestInfiniteClipping(t *testing.T) {
 	testData := []struct {
-		inputSignal   []float64
-		clippedSignal []float64
+		inputSignal  types.Signal
+		outputSignal types.Signal
 	}{
 		{
-			[]float64{0, 0.5, 1, 0.5, 0, -0.5, -1, -0.5, 0},
-			[]float64{1, 1, 1, 1, 1, -1, -1, -1, 1},
+			types.Signal{
+				Data:       []float64{0, 0.5, 1, 0.5, 0, -0.5, -1, -0.5, 0},
+				Channels:   1,
+				Samplerate: 44100.0,
+				NumSamples: 9,
+			},
+			types.Signal{
+				Data:       []float64{1, 1, 1, 1, 1, -1, -1, -1, 1},
+				Channels:   1,
+				Samplerate: 44100.0,
+				NumSamples: 9,
+			},
 		},
 		{
-			[]float64{0, -0.5, -2, -1.5, 0, 0.5, 2, 1.5, 0},
-			[]float64{1, -1, -1, -1, 1, 1, 1, 1, 1},
+			types.Signal{
+				Data:       []float64{0, -0.5, -2, -1.5, 0, 0.5, 2, 1.5, 0},
+				Channels:   1,
+				Samplerate: 44100.0,
+				NumSamples: 9,
+			},
+			types.Signal{
+				Data:       []float64{1, -1, -1, -1, 1, 1, 1, 1, 1},
+				Channels:   1,
+				Samplerate: 44100.0,
+				NumSamples: 9,
+			},
 		},
 	}
 
 	for _, caseData := range testData {
 		result := InfiniteClipping(caseData.inputSignal)
 
-		if !audiodsputils.CompareArrayValues(result, caseData.clippedSignal) {
-			t.Errorf("Infinite clipping of signal %v was incorrect, got: %v, want: %v.", caseData.inputSignal, result, caseData.clippedSignal)
+		if !audiodsputils.CompareSignals(result, caseData.outputSignal) {
+			t.Errorf("Infinite clipping of signal %v was incorrect, got: %v, want: %v.", caseData.inputSignal, result, caseData.outputSignal)
 		}
 	}
 }
