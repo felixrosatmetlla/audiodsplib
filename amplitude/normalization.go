@@ -4,19 +4,27 @@ import (
 	"math"
 
 	"github.com/felixrosatmetlla/audiodsplib/audiodsputils"
+	"github.com/felixrosatmetlla/audiodsplib/types"
 )
 
 // PeakNormalization normalizes a signal using its peak value
-func PeakNormalization(signal []float64) []float64 {
-	var bufferSize = len(signal)
-	var output = make([]float64, bufferSize)
+func PeakNormalization(inputSignal types.Signal) types.Signal {
+	var bufferSize = inputSignal.NumSamples * inputSignal.Channels
+	var outputBuffer = make([]float64, bufferSize)
 
-	var _, maxValue = audiodsputils.GetArrayMinMax(signal)
-	for index := range output {
-		output[index] = signal[index] / maxValue
+	var _, maxValue = audiodsputils.GetArrayMinMax(inputSignal.Data)
+	for index := range outputBuffer {
+		outputBuffer[index] = inputSignal.Data[index] / maxValue
 	}
 
-	return output
+	outputSignal := types.Signal{
+		Data:       outputBuffer,
+		Channels:   inputSignal.Channels,
+		Samplerate: inputSignal.Samplerate,
+		NumSamples: inputSignal.NumSamples,
+	}
+
+	return outputSignal
 }
 
 // RMSNormalization normalizes a signal amplitude to a specified RMS (Root Mean Squared) amplitude value
