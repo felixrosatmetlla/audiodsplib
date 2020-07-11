@@ -69,7 +69,7 @@ func TestCompareMonoSignals(t *testing.T) {
 	}
 
 	for _, caseData := range testData {
-		result := CompareMonoSignals(caseData.firstSignal, caseData.secondSignal)
+		result := CompareArrayValues(caseData.firstSignal, caseData.secondSignal)
 
 		if result != caseData.areSignalsEqual {
 			t.Errorf("Comparison of signals %v and %v was incorrect, got: %t, want: %t.", caseData.firstSignal, caseData.secondSignal, result, caseData.areSignalsEqual)
