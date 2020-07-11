@@ -38,27 +38,43 @@ func InfiniteClipping(inputSignal types.Signal) types.Signal {
 // Input variables:
 //  signal: Input signal to distort
 //  threshold: Absolute amplitude value where the signal will be clipped (threshold > 0)
-func HardClipping(signal []float64, threshold float64) ([]float64, error) {
+func HardClipping(inputSignal types.Signal, threshold float64) (types.Signal, error) {
+	var outputSignal types.Signal
+
 	if threshold <= 0 {
-		return []float64{}, errors.New("distortion: Invalid threshold value. Valid value: Threshold >= 0")
+		outputSignal = types.Signal{
+			Data:       []float64{},
+			Channels:   inputSignal.Channels,
+			Samplerate: inputSignal.Samplerate,
+			NumSamples: 0,
+		}
+
+		return outputSignal, errors.New("distortion: Invalid threshold value. Valid value: Threshold >= 0")
 	}
 
-	var bufferSize = len(signal)
-	var output = make([]float64, bufferSize)
+	var bufferSize = inputSignal.NumSamples * inputSignal.Channels
+	var outputBuffer = make([]float64, bufferSize)
 
-	for index, value := range signal {
+	for index, value := range inputSignal.Data {
 		if value >= threshold {
-			output[index] = threshold
+			outputBuffer[index] = threshold
 
 		} else if value <= -threshold {
-			output[index] = -threshold
+			outputBuffer[index] = -threshold
 
 		} else {
-			output[index] = value
+			outputBuffer[index] = value
 		}
 	}
 
-	return output, nil
+	outputSignal = types.Signal{
+		Data:       outputBuffer,
+		Channels:   inputSignal.Channels,
+		Samplerate: inputSignal.Samplerate,
+		NumSamples: inputSignal.NumSamples,
+	}
+
+	return outputSignal, nil
 }
 
 // CubicDistortion distorts a signal using a cubic function
