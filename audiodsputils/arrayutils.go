@@ -17,9 +17,9 @@ func GetArrayMinMax(array []float64) (min float64, max float64) {
 	return min, max
 }
 
-// CompareMonoSignals compares the values of 2 mono signals
+// CompareArrayValues compares the values of 2 mono signals
 // Returns a bool to indicate if the signals are equal or not
-func CompareMonoSignals(a, b []float64) bool {
+func CompareArrayValues(a, b []float64) bool {
 
 	if (a == nil) != (b == nil) {
 		return false

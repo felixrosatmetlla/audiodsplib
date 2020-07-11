@@ -16,24 +16,25 @@ import (
 //  sampleRate: signal sample rate in samples/s
 //  channels: number of channels of the output signal
 func SynthSinus(frequency float64, amplitude float64, phase float64, duration float64, sampleRate float64, channels int) types.Signal {
-	var numSamplesChannel int = int(duration * sampleRate)
-	var numSamplesSignal int = numSamplesChannel * channels
-	var sinBuffer = make([]float64, numSamplesSignal)
+	var numSamples int = int(duration * sampleRate)
+	var bufferSize int = numSamples * channels
+	var outputBuffer = make([]float64, bufferSize)
 	var Ts = 1 / sampleRate
 
 	for channel := 0; channel < channels; channel++ {
-		for index := 0; index < numSamplesChannel; index++ {
-			var sample int = index + channel*numSamplesChannel
+		for index := 0; index < numSamples; index++ {
+			var sample int = index + channel*numSamples
 
 			var time float64 = float64(sample) * Ts
-			sinBuffer[sample] = amplitude * math.Sin(2*math.Pi*frequency*time+phase)
+			outputBuffer[sample] = amplitude * math.Sin(2*math.Pi*frequency*time+phase)
 		}
 	}
 
 	sinus := types.Signal{
-		Data:       sinBuffer,
+		Data:       outputBuffer,
 		Channels:   channels,
 		Samplerate: sampleRate,
+		NumSamples: numSamples,
 	}
 
 	return sinus

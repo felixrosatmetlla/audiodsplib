@@ -12,4 +12,7 @@ type Signal struct {
 	Data       []float64
 	Channels   int
 	Samplerate float64
+	NumSamples int
 }
+
+// TODO: Make constructor method
