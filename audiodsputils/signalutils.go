@@ -25,3 +25,13 @@ func CompareSignals(signalA, signalB types.Signal) bool {
 //TODO: Method(Signal, output N-D slice(empty)) return slice?
 
 //TODO: Method/Check to make sure the values are logic (channels = -1; etc.)
+
+func IsSignalValid(signal types.Signal) bool {
+	if signal.Channels < 1 {
+		return false
+	} else if signal.NumSamples < 0 {
+		return false
+	}
+
+	return true
+}
