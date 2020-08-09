@@ -1,8 +1,48 @@
 package audiodsputils
 
 import (
+	"errors"
+
+	"github.com/felixrosatmetlla/audiodsplib/audiodsputils"
 	"github.com/felixrosatmetlla/audiodsplib/types"
 )
+
+// CreateSignal is a constructor to create safely a Signal type instance
+//
+// Input variables:
+//  data: samples of the signal
+//  	  represented with a 1D slice where all channels data is put consecutively in order
+//  channels: number of the channels the signal has
+//  samplerate: signal samplerate in samples/s
+//  numSamples: Number of samples per channel
+func CreateSignal(data []float64, channels int, samplerate float64, numSamples int) (types.Signal, error) {
+	var outputSignal = types.Signal{
+		Data:       data,
+		Channels:   channels,
+		Samplerate: samplerate,
+		NumSamples: numSamples,
+	}
+
+	if !audiodsputils.IsSignalValid(outputSignal) {
+		outputSignal = types.Signal{
+			Data:       []float64{},
+			Channels:   channels,
+			Samplerate: samplerate,
+			NumSamples: 0,
+		}
+
+		return outputSignal, errors.New("Signal: Invalid parameters to create a signal")
+	}
+
+	outputSignal = types.Signal{
+		Data:       data,
+		Channels:   channels,
+		Samplerate: samplerate,
+		NumSamples: numSamples,
+	}
+
+	return outputSignal, nil
+}
 
 // CompareSignals compares two Signal type variables
 //
