@@ -8,7 +8,6 @@ import (
 	"github.com/felixrosatmetlla/audiodsplib/types"
 )
 
-//TODO: Check fixture packages to get more reliable testing results
 func TestPeakNormalization(t *testing.T) {
 	testData := []struct {
 		inputSignal  types.Signal
