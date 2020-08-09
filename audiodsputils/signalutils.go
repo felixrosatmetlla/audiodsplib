@@ -8,12 +8,15 @@ import (
 
 // CreateSignal is a constructor to create safely a Signal type instance
 //
-// Input variables:
+// Input:
 //  data: samples of the signal
 //  	  represented with a 1D slice where all channels data is put consecutively in order
 //  channels: number of the channels the signal has
 //  samplerate: signal samplerate in samples/s
 //  numSamples: Number of samples per channel
+// Output:
+//  Signal: the constructed Signal with the input parameters
+//  error: has a value if there is an error during the creation
 func CreateSignal(data []float64, channels int, samplerate float64, numSamples int) (types.Signal, error) {
 	var outputSignal = types.Signal{
 		Data:       data,

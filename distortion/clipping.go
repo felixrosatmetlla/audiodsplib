@@ -35,9 +35,12 @@ func InfiniteClipping(inputSignal types.Signal) types.Signal {
 
 // HardClipping distorts a signal clipping it to the value indicated
 //
-// Input variables:
-//  signal: Input signal to distort
+// Input:
+//  inputSignal: Input signal to distort
 //  threshold: Absolute amplitude value where the signal will be clipped (threshold > 0)
+// Output:
+//  Signal: the output signal with the modifications
+//  error: has a value if threshold has an invalid value
 func HardClipping(inputSignal types.Signal, threshold float64) (types.Signal, error) {
 	var outputSignal types.Signal
 
@@ -79,11 +82,14 @@ func HardClipping(inputSignal types.Signal, threshold float64) (types.Signal, er
 
 // CubicDistortion distorts a signal using a cubic function
 //
-// Input variables:
-//  signal: Input signal to distort
+// Input :
+//  inputSignal: Input signal to distort
 //  amplitude: The drive amount of the distortion. Range from [0, 1]:
 //   0: no distortion
 //   1: maximum amount of distortion
+// Output:
+//  Signal: the output signal with the modifications
+//  error: has a value if amplitude has an invalid value
 func CubicDistortion(inputSignal types.Signal, amplitude float64) (types.Signal, error) {
 	var outputSignal types.Signal
 
@@ -117,10 +123,13 @@ func CubicDistortion(inputSignal types.Signal, amplitude float64) (types.Signal,
 
 // ArctangentDistortion distorts a signal using an arctangent function
 //
-// Input variables:
-//  signal: Input signal to distort
+// Input:
+//  inputSignal: Input signal to distort
 //  alpha: The drive amount of the distortion
 //   Range from [1, 10]: higher -> more distortion
+// Output:
+//  Signal: the output signal with the modifications
+//  error: has a value if alpha has an invalid value
 func ArctangentDistortion(inputSignal types.Signal, alpha float64) (types.Signal, error) {
 	var outputSignal types.Signal
 

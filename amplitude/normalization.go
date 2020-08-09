@@ -8,6 +8,11 @@ import (
 )
 
 // PeakNormalization normalizes a signal using its peak value
+//
+// Input:
+//  inputSignal: Input signal to normalize
+// Output:
+//  Signal: the output signal with the modifications
 func PeakNormalization(inputSignal types.Signal) types.Signal {
 	var bufferSize = inputSignal.NumSamples * inputSignal.Channels
 	var outputBuffer = make([]float64, bufferSize)

@@ -1,6 +1,12 @@
 package audiodsputils
 
 // GetArrayMinMax returns the minimum and maximum value of an array
+//
+// Input:
+//  array: Input array from which min and max are wanted
+// Output:
+//  min: minimum value of the signal
+//  max: maximum value of the signal
 func GetArrayMinMax(array []float64) (min float64, max float64) {
 	max = array[0]
 	min = array[0]
@@ -18,19 +24,24 @@ func GetArrayMinMax(array []float64) (min float64, max float64) {
 }
 
 // CompareArrayValues compares the values of 2 mono signals
-// Returns a bool to indicate if the signals are equal or not
-func CompareArrayValues(a, b []float64) bool {
+//
+// Input:
+//  arrayA: Input array to compare
+//  arrayB: Second input array to compare
+// Output:
+//  result: true if the signals are equal
+func CompareArrayValues(arrayA, arrayB []float64) bool {
 
-	if (a == nil) != (b == nil) {
+	if (arrayA == nil) != (arrayB == nil) {
 		return false
 	}
 
-	if len(a) != len(b) {
+	if len(arrayA) != len(arrayB) {
 		return false
 	}
 
-	for i := range a {
-		if a[i] != b[i] {
+	for i := range arrayA {
+		if arrayA[i] != arrayB[i] {
 			return false
 		}
 	}
