@@ -29,8 +29,6 @@ func CompareSignals(signalA, signalB types.Signal) bool {
 	return true
 }
 
-//TODO: Method(Signal, output N-D slice(empty)) return slice?
-
 // IsSignalValid checks if a Signal type variable has valid field values
 //
 // Input:
