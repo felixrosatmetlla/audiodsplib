@@ -15,6 +15,7 @@ import (
 //  	  represented with a 1D slice where all channels data is put consecutively in order
 //  Channels: number of the channels the signal has
 //  Samplerate: signal samplerate in samples/s
+//  NumSamples: Number of samples per channel
 type Signal struct {
 	Data       []float64
 	Channels   int
@@ -22,8 +23,14 @@ type Signal struct {
 	NumSamples int
 }
 
-// TODO: Make constructor method
-
+// CreateSignal is a constructor to create safely a Signal type instance
+//
+// Input variables:
+//  data: samples of the signal
+//  	  represented with a 1D slice where all channels data is put consecutively in order
+//  channels: number of the channels the signal has
+//  samplerate: signal samplerate in samples/s
+//  numSamples: Number of samples per channel
 func CreateSignal(data []float64, channels int, samplerate float64, numSamples int) (types.Signal, error) {
 	var outputSignal = types.Signal{
 		Data:       data,
@@ -33,6 +40,13 @@ func CreateSignal(data []float64, channels int, samplerate float64, numSamples i
 	}
 
 	if !audiodsputils.IsSignalValid(outputSignal) {
+		outputSignal = types.Signal{
+			Data:       []float64{},
+			Channels:   channels,
+			Samplerate: samplerate,
+			NumSamples: 0,
+		}
+
 		return outputSignal, errors.New("Signal: Invalid parameters to create a signal")
 	}
 
