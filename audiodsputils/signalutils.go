@@ -3,7 +3,6 @@ package audiodsputils
 import (
 	"errors"
 
-	"github.com/felixrosatmetlla/audiodsplib/audiodsputils"
 	"github.com/felixrosatmetlla/audiodsplib/types"
 )
 
@@ -23,7 +22,7 @@ func CreateSignal(data []float64, channels int, samplerate float64, numSamples i
 		NumSamples: numSamples,
 	}
 
-	if !audiodsputils.IsSignalValid(outputSignal) {
+	if !IsSignalValid(outputSignal) {
 		outputSignal = types.Signal{
 			Data:       []float64{},
 			Channels:   channels,

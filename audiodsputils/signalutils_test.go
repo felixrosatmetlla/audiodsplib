@@ -3,7 +3,6 @@ package audiodsputils
 import (
 	"testing"
 
-	"github.com/felixrosatmetlla/audiodsplib/audiodsputils"
 	"github.com/felixrosatmetlla/audiodsplib/types"
 )
 
@@ -52,7 +51,7 @@ func TestCreateSignal(t *testing.T) {
 			t.Errorf("No error message was expected, and got %v", err)
 		}
 
-		if !audiodsputils.CompareSignals(result, caseData.outputSignal) {
+		if !CompareSignals(result, caseData.outputSignal) {
 			t.Errorf("Creation of Signal was incorrect, got: %v, want: %v.", result, caseData.outputSignal)
 		}
 	}
