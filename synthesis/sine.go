@@ -8,13 +8,15 @@ import (
 
 // SynthSinus synthesizes a mono sinus signal
 //
-// Input variables:
+// Input:
 //  frequency: signal frequency in Hz
 //  amplitude: amplitude of the output signal
 //  phase: initial phase offset of the signal
 //  duration: signal duration in seconds
 //  sampleRate: signal sample rate in samples/s
 //  channels: number of channels of the output signal
+// Output:
+//  Signal: the output sinus Signal
 func SynthSinus(frequency float64, amplitude float64, phase float64, duration float64, sampleRate float64, channels int) types.Signal {
 	var numSamples int = int(duration * sampleRate)
 	var bufferSize int = numSamples * channels
