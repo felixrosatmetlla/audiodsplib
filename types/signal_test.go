@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/felixrosatmetlla/audiodsplib/audiodsputils"
-	"github.com/felixrosatmetlla/audiodsplib/types"
 )
 
 func TestCreateSignal(t *testing.T) {
@@ -13,14 +12,14 @@ func TestCreateSignal(t *testing.T) {
 		channels     int
 		samplerate   float64
 		numSamples   int
-		outputSignal types.Signal
+		outputSignal Signal
 	}{
 		{
 			[]float64{0, 0.5, 1, 0.5, 0, -0.5, -1, -0.5, 0},
 			1,
 			44100.0,
 			9,
-			types.Signal{
+			Signal{
 				Data:       []float64{0, 0.5, 1, 0.5, 0, -0.5, -1, -0.5, 0},
 				Channels:   1,
 				Samplerate: 44100.0,
@@ -32,7 +31,7 @@ func TestCreateSignal(t *testing.T) {
 			-1,
 			44100.0,
 			9,
-			types.Signal{
+			Signal{
 				Data:       []float64{},
 				Channels:   -1,
 				Samplerate: 44100.0,

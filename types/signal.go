@@ -4,7 +4,6 @@ import (
 	"errors"
 
 	"github.com/felixrosatmetlla/audiodsplib/audiodsputils"
-	"github.com/felixrosatmetlla/audiodsplib/types"
 )
 
 // Signal struct defines the type used to represent the signals
@@ -31,8 +30,8 @@ type Signal struct {
 //  channels: number of the channels the signal has
 //  samplerate: signal samplerate in samples/s
 //  numSamples: Number of samples per channel
-func CreateSignal(data []float64, channels int, samplerate float64, numSamples int) (types.Signal, error) {
-	var outputSignal = types.Signal{
+func CreateSignal(data []float64, channels int, samplerate float64, numSamples int) (Signal, error) {
+	var outputSignal = Signal{
 		Data:       data,
 		Channels:   channels,
 		Samplerate: samplerate,
@@ -40,7 +39,7 @@ func CreateSignal(data []float64, channels int, samplerate float64, numSamples i
 	}
 
 	if !audiodsputils.IsSignalValid(outputSignal) {
-		outputSignal = types.Signal{
+		outputSignal = Signal{
 			Data:       []float64{},
 			Channels:   channels,
 			Samplerate: samplerate,
@@ -50,7 +49,7 @@ func CreateSignal(data []float64, channels int, samplerate float64, numSamples i
 		return outputSignal, errors.New("Signal: Invalid parameters to create a signal")
 	}
 
-	outputSignal = types.Signal{
+	outputSignal = Signal{
 		Data:       data,
 		Channels:   channels,
 		Samplerate: samplerate,
